@@ -3,14 +3,14 @@ import { POI } from './../../models/poi.model';
 import { Component, OnInit } from '@angular/core';
 import { Posicao } from '../../../app/models/posicao.model';
 import { PosicaoVeiculosService } from '../../../app/services/posicao-veiculos/posicao-veiculos.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [ CommonModule, TableComponent ],
+  imports: [ CommonModule, TableComponent, DatePipe ],
 })
 export class HomeComponent implements OnInit {
 

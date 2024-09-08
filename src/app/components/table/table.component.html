@@ -1,46 +1,71 @@
 <div>
-  <div>
-    <div>
-        <!-- Campo para filtrar por placa e posição -->
-        <input class="form-control" type="text" [(ngModel)]="filterPlaca" placeholder="Filtrar por placa" />
-        <input  class="form-control"type="text" [(ngModel)]="filterPosicao" placeholder="Filtrar por posição" />
-
-        <!-- Campo para filtrar por data -->
-        <input  class="form-control" type="date" [(ngModel)]="filterData" placeholder="Filtrar por data" />
+  <div class="container-filtros">
+    <div class="row">
+      <span>
+        <input class="slide-up" id="filtro-placa" type="text" placeholder="ABC6787" [(ngModel)]="filterPlaca" /><label for="iltro-placa">Placa</label>
+      </span>
+      <span>
+        <input class="slide-up" id="filtro-poi" type="text" placeholder="Ponto 1" [(ngModel)]="filterPosicao" /><label for="filtro-poi">Posição</label>
+      </span>
+      <input
+        class="input-filtro"
+        type="date"
+        [(ngModel)]="filterData"
+        placeholder="Filtrar por data"
+      />
     </div>
   </div>
 
+  <div style="position: relative;">
+    <div class="container-table">
+      <table class="table-box">
+        <thead>
+          <tr>
+            <th class="placa" (click)="sortData('placa')">
+              <i class="icon table-icon-sort"></i>
+              Placa
+            </th>
+            <th (click)="sortData('posicao')">
+              <i class="icon table-icon-sort"></i>
+              Posição
+            </th>
+            <th (click)="sortData('data')">
+              <i class="icon table-icon-sort"></i>
+              Data
+            </th>
+            <th>Tempo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <div style="overflow:scroll;
+          max-height:500px;"> -->
+            <tr *ngFor="let item of paginatedData()">
+              <td class="placa">{{ item.placa }}</td>
+              <td>{{ item.posicao }}</td>
+              <td>{{ item.data | date : "dd/MM/yyyy" }}</td>
+              <td>{{ item.tempo }}</td>
+            </tr>
+          <!-- </div> -->
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-  <!-- Tabela com dados -->
-  <table>
-    <thead>
-      <tr>
-        <th (click)="sortData('placa')">Placa</th> <!-- Ordenar por placa -->
-        <th (click)="sortData('posicao')">Posição</th> <!-- Ordenar por posição -->
-        <th (click)="sortData('data')">Data</th> <!-- Ordenar por data -->
-        <th>Tempo</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of paginatedData()">
-        <td>{{ item.placa }}</td>
-        <td>{{ item.posicao }}</td>
-        <td>{{ item.data | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ item.tempo }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Seletor de número de resultados por página -->
-  <label for="pageSize">Resultados por página:</label>
-  <select id="pageSize" (change)="updatePageSize($event)">
-    <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
-  </select>
-
-  <!-- Controles de paginação -->
-  <div>
-    <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-    <span>Página {{ currentPage }} de {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Próxima</button>
+  <div class="container-paginacao">
+    <div class="paginacao-navegacao">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">
+        <i class="icon paginacao-icon-anterior"></i>
+      </button>
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        <i class="icon paginacao-icon-proximo"></i>
+      </button>
+    </div>
+    <div class="paginacao-resultados">
+          <label for="pageSize">Resultados por página:</label>
+          <select id="pageSize" (change)="updatePageSize($event)">
+            <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+          </select>
+    </div>
   </div>
 </div>
