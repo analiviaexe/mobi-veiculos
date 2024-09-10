@@ -1,8 +1,36 @@
+@import '../../../assets/styles/colors.scss';
+
 .container {
   width: 100%;
   height: 100%;
   display: flex;
-  // align-items: center;
-  margin: 100px 0;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  background-color: $bg-secondary;
+}
+
+.container-error {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-size: 400% 400%;
+  // background-image: linear-gradient(to right, #212529, #24303e, #273b54, #2c466a, #365081);
+  background-image: linear-gradient(to right top, #212529, #24303e, #2f3a48, #2c466a, #365081);
+  animation: mygradient 10s ease infinite;
+}
+
+@keyframes mygradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
 }

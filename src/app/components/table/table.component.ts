@@ -51,7 +51,6 @@ export class TableComponent {
   }
 
   filteredData() {
-    console.log()
     return this.data
       .filter((item) => {
         return (

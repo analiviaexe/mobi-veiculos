@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="container__card">
+    <form class="container__card__form" [formGroup]="formGroup">
+      <span class="container__card__form__title">Welcome</span>
+      <div class="container__card__form__input">
+        <input
+          class="container__card__form__input__content"
+          type="text"
+          name="username"
+          [ngClass]="{ hasVal: formGroup.get('username')?.value != '' }"
+          formControlName="username"
+        />
+        <span
+          class="container__card__form__input__focus"
+          data-placeholder="Username"
+        ></span>
+      </div>
+
+      <div class="container__card__form__input">
+        <span class="btn-show-pass">
+          <i class="zmdi zmdi-eye"></i>
+        </span>
+        <input
+          class="container__card__form__input__content"
+          type="password"
+          name="password"
+          [ngClass]="{ hasVal: formGroup.get('password')?.value != '' }"
+          formControlName="password"
+        />
+        <span
+          class="container__card__form__input__focus"
+          data-placeholder="Password"
+        ></span>
+        <span *ngIf="this.formGroup.get('password')?.errors">
+          Campo obrigatório
+       </span>
+      </div>
+      <button
+        type="submit"
+        [disabled]="!(this.formGroup.valid)"
+        class="container__card__form__submit"
+        (click)="redirecionaHome()"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+</div>

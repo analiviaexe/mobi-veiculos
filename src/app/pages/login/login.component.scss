@@ -1,0 +1,151 @@
+@import '../../../assets/styles/colors.scss';
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-size: 400% 400%;
+  background-image: linear-gradient(to right top, #212529, #24303e, #2f3a48, #2c466a, #365081);
+  animation: mygradient 10s ease infinite;
+
+  &__card {
+    background-color: $bg-secondary;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 70px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      &__title {
+        margin-bottom: 30px;
+      }
+
+      input, input:focus {
+        border: none;
+        outline: none;
+      }
+
+      &__input {
+        width: 100%;
+        position: relative;
+        border-bottom: 2px solid #adadad;
+        margin-bottom: 37px;
+
+        &__content{
+          font-size: 15px;
+          color: #555555;
+          line-height: 1.2;
+
+          display: block;
+          width: 100%;
+          height: 45px;
+          background: transparent;
+          padding: 0 5px;
+        }
+
+        &__focus{
+          position: absolute;
+          display: block;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          pointer-events: none;
+        }
+
+        &__focus::before {
+          content: "";
+          display: block;
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 2px;
+
+          -webkit-transition: all 0.4s;
+          -o-transition: all 0.4s;
+          -moz-transition: all 0.4s;
+          transition: all 0.4s;
+
+          background: $color-primary;
+
+        }
+
+        &__focus::after {
+          font-size: 15px;
+          color: #999999;
+          line-height: 1.2;
+
+          content: attr(data-placeholder);
+          display: block;
+          width: 100%;
+          position: absolute;
+          top: 16px;
+          left: 0px;
+          padding-left: 5px;
+        }
+
+        &__focus:focus + &__focus:after {
+          top: -15px;
+        }
+
+        &__content:focus + &__focus::before {
+          width: 100%;
+        }
+
+        &__content.hasVal+ &__focus:after {
+          top: -15px;
+        }
+
+        &__content.hasVal + &__focus::before {
+          width: 100%;
+        }
+      }
+
+      &__submit {
+        width: 100px;
+        height: 50px;
+        background-color: $color-primary;
+        color: white;
+        -webkit-transition: opacity 0.6s ease-in-out;
+        -moz-transition: opacity 0.6s ease-in-out;
+        -ms-transition: opacity 0.6s ease-in-out;
+        -o-transition: opacity 0.6s ease-in-out;
+        transition: opacity 0.6s ease-in-out;
+      }
+
+      &__submit:hover{
+        opacity: 0.8;
+      }
+
+      &__submit:disabled {
+        background-color: light-dark(rgba(16, 16, 16, 0.3), rgba(255, 255, 255, 0.3));
+        color: white;
+      }
+
+      &__submit:disabled:hover{
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@keyframes mygradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}

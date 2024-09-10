@@ -1,20 +1,20 @@
 /* tslint:disable:no-unused-variable */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TableComponent } from './table.component';
+import { CardErroComponent } from './card-erro.component';
 
-describe('TableComponent', () => {
-  let component: TableComponent;
-  let fixture: ComponentFixture<TableComponent>;
+describe('CardErroComponent', () => {
+  let component: CardErroComponent;
+  let fixture: ComponentFixture<CardErroComponent>;
 
-  beforeEach(() => {
+  beforeEach((() => {
     TestBed.configureTestingModule({
-      declarations: [ TableComponent ]
+      declarations: [ CardErroComponent ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableComponent);
+    fixture = TestBed.createComponent(CardErroComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,33 @@
+@import '../../../assets/styles/colors.scss';
+
+.card-erro {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  color: $color-font-primary;
+  background: white;
+
+  &__icon {
+    span {
+      font-size: 40px;
+      font-weight: 200px;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    text-align: center;
+
+    &__code {
+      color: $color-font-secondary;
+    }
+  }
+}
+
