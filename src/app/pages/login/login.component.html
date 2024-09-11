@@ -7,7 +7,7 @@
           class="container__card__form__input__content"
           type="text"
           name="username"
-          [ngClass]="{ hasVal: formGroup.get('username')?.value != '' }"
+          [ngClass]="{ hasVal: username?.value != '' }"
           formControlName="username"
         />
         <span
@@ -18,26 +18,24 @@
 
       <div class="container__card__form__input">
         <span class="btn-show-pass">
-          <i class="zmdi zmdi-eye"></i>
+          <span class="material-symbols-outlined container__card__form__input__pass-visibility" (click)="typeInput === 'text' ? typeInput = 'password' : typeInput = 'text'">{{typeInput === 'text' ? 'visibility_off' : 'visibility'}}</span>
         </span>
         <input
+          id="password"
           class="container__card__form__input__content"
-          type="password"
+          [type]="typeInput"
           name="password"
-          [ngClass]="{ hasVal: formGroup.get('password')?.value != '' }"
+          [ngClass]="{ hasVal: password?.value != '' }"
           formControlName="password"
         />
         <span
           class="container__card__form__input__focus"
           data-placeholder="Password"
         ></span>
-        <span *ngIf="this.formGroup.get('password')?.errors">
-          Campo obrigatório
-       </span>
       </div>
       <button
         type="submit"
-        [disabled]="!(this.formGroup.valid)"
+        [disabled]="this.formGroup.invalid"
         class="container__card__form__submit"
         (click)="redirecionaHome()"
       >

@@ -1,0 +1,15 @@
+<div>
+  <div (mouseleave)="abreDropdown = false">
+      <button class="drop-toggle btn flat" (click)="abreDropdown =! abreDropdown">
+          <span *ngIf="selecionados.length<=0">{{label}}</span>
+          <span *ngIf="selecionados.length>0">{{selecionados.join(', ')}}</span>
+          <i class="fa fa-angle-down"></i>
+      </button>
+      <div class="drop-show" *ngIf="abreDropdown">
+          <label *ngFor="let item of lista">
+              <input type="checkbox" (change)="selecionaItem(item)" [checked]="selecionados.includes(item)"/>
+              <span>{{item}}</span>
+          </label>
+      </div>
+  </div>
+</div>

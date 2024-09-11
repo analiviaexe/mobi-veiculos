@@ -1,5 +1,5 @@
 <div class="container">
-  <app-table></app-table>
+  <app-table *ngIf="placas.length > 0" [placas]="placas"></app-table>
 </div>
 
 <!-- <div *ngIf="hasError" class="container-error">

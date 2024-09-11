@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { of, throwError } from 'rxjs';
 import { SessaoService } from 'src/app/services/sessao/sessao.service';
 
 @Component({
@@ -14,19 +13,21 @@ import { SessaoService } from 'src/app/services/sessao/sessao.service';
 })
 export class LoginComponent implements OnInit {
 
+  typeInput = 'password';
+
   formGroup: FormGroup = new FormGroup({
     username: new FormControl<string>("", {
       nonNullable: true,
       validators: [
         Validators.required,
-        Validators.min(2),
+        Validators.minLength(2),
       ],
     }),
     password: new FormControl<string>("", {
       nonNullable: true,
       validators: [
         Validators.required,
-        Validators.min(6),
+        Validators.minLength(6),
       ],
     }),
   });
@@ -47,4 +48,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  get username() {
+    return this.formGroup.get('username');
+  }
+
+  get password() {
+    return this.formGroup.get('password');
+  }
 }

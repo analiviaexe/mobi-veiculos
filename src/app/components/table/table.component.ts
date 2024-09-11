@@ -1,3 +1,4 @@
+import { DropdownComponent } from './../dropdown/dropdown.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Posicao } from './../../models/posicao.model';
 import { Component, Input, input, OnInit } from '@angular/core';
@@ -11,12 +12,12 @@ registerLocaleData(localePt);
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  imports: [ FormsModule, CommonModule, DatePipe ],
+  imports: [ FormsModule, CommonModule, DatePipe, DropdownComponent ],
   standalone: true
 })
-export class TableComponent {
-  @Input()
-  posicoes: Posicao[] = [];
+export class TableComponent implements OnInit {
+  @Input() posicoes: Posicao[] = [];
+  @Input() placas: string[] = [];
   filterPlaca = '';
   filterPosicao = '';
   filterData: string | null = null;
@@ -45,6 +46,10 @@ export class TableComponent {
   currentPage = 1;
   pageSize = 5;
   pageSizes = [5, 10, 15];
+
+  ngOnInit(): void {
+    console.log(this.placas)
+  }
 
   get totalPages() {
     return Math.ceil(this.filteredData().length / this.pageSize);

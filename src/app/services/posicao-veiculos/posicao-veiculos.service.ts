@@ -18,7 +18,12 @@ constructor(
     return this.restService.get(environment.api.endpoints.placas);
   }
 
-  getPosicao(placa: string, data: string): Observable<Posicao[]> {
+  getPosicoes(): Observable<Posicao[]> {
+    const url = `${environment.api.endpoints.posicao}`;
+    return this.restService.get(url);
+  }
+
+  getPosicaoEspecifica(placa: string, data: string): Observable<Posicao[]> {
     const url = `${environment.api.endpoints.posicao}?placa=${placa}&data=${data}`;
     return this.restService.get(url);
   }

@@ -1,12 +1,7 @@
-<div>
+<div *ngIf="placas.length > 0">
   <div class="container-filtros">
     <div class="row">
-      <span>
-        <input class="slide-up" id="filtro-placa" type="text" placeholder="ABC6787" [(ngModel)]="filterPlaca" /><label for="filtro-placa">Placa</label>
-      </span>
-      <span>
-        <input class="slide-up" id="filtro-poi" type="text" placeholder="Ponto 1" [(ngModel)]="filterPosicao" /><label for="filtro-poi">Posição</label>
-      </span>
+      span
       <span>
         <input
           class="input-date"
@@ -14,6 +9,15 @@
           [(ngModel)]="filterData"
           placeholder="Filtrar por data"
         />
+      </span>
+      <span>
+        <app-dropdown [label]="'Placa(s)'" [lista]="placas"></app-dropdown>
+      </span>
+      <span>
+        <input class="slide-up" id="filtro-placa" type="text" placeholder="ABC6787" [(ngModel)]="filterPlaca" /><label for="filtro-placa">Placa</label>
+      </span>
+      <span>
+        <input class="slide-up" id="filtro-poi" type="text" placeholder="Ponto 1" [(ngModel)]="filterPosicao" /><label for="filtro-poi">Posição</label>
       </span>
     </div>
   </div>

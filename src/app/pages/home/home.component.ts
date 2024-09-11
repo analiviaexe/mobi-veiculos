@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   pois: POI[] = [];
   hasError: boolean = false;
   codErro: string = '';
+  dadosTabela = [];
 
   constructor(
     private posicaoVeiculosService: PosicaoVeiculosService,
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlacas();
-    this.getPosicoes();
+    // this.getPosicoes();
     this.getPontos();
   }
 
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
     this.posicaoVeiculosService.getPlacas().subscribe({
       next: res => {
         this.placas = res;
+        console.log(this.placas)
       },
       error: err => {
         this.hasError = true;
@@ -43,17 +45,17 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getPosicoes() {
-    this.posicaoVeiculosService.getPosicao('TESTE001', '12/16/2018').subscribe({
-      next: res => {
-        this.posicoes = res;
-      },
-      error: err => {
-        this.hasError = true;
-        this.codErro = err.status;
-      }
-    });
-  }
+  // getPosicoes() {
+  //   this.posicaoVeiculosService.getPosicoes().subscribe({
+  //     next: res => {
+  //       this.posicoes = res;
+  //     },
+  //     error: err => {
+  //       this.hasError = true;
+  //       this.codErro = err.status;
+  //     }
+  //   });
+  // }
 
   getPontos(){
     this.posicaoVeiculosService.getPOIS().subscribe({
@@ -65,5 +67,8 @@ export class HomeComponent implements OnInit {
         this.codErro = err.status;
       }
     });
+  }
+
+  montaDadosTabela() {
   }
 }
