@@ -8,6 +8,167 @@
   align-items: center;
   justify-content: center;
   background-color: $bg-secondary;
+
+  &__filtros {
+    width: 100%;
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    margin-bottom: 10px;
+
+    &__box {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      margin: 0 auto;
+      text-align: center;
+
+      >* {
+        margin: 0 10px;
+      }
+
+      span {
+        width: 100%;
+        position: relative;
+        display: inline-block;
+      }
+
+      :first-child {
+        margin-left: 0;
+      }
+
+      :last-child {
+        margin-right: 0;
+      }
+
+      &__input-date {
+        display: block;
+        font-family: 'Poppins',Arial, sans-serif;
+        font-weight: 400;
+        padding: 9px 15px;
+        color: #000;
+        background: white;
+        border: 0;
+        border-radius: 3px;
+        outline: 0;
+        box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
+        cursor: pointer;
+        letter-spacing: 1.5px;
+      }
+
+      &__input-placa {
+        display: block;
+        font-family: 'Poppins',Arial, sans-serif;
+        font-weight: 400;
+        width: 100%;
+        color: #000;
+        background: white;
+        border: 0;
+        border-radius: 3px;
+        outline: 0;
+        box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
+        cursor: pointer;
+        letter-spacing: 1.5px;
+        padding: 1px 5px;
+      }
+
+      &__input-poi {
+        display: inline-block;
+        width: 100%;
+        padding: 10px 0 10px 15px;
+        font-weight: 400;
+        color: #000;
+        background: white;
+        border: 0;
+        border-radius: 3px;
+        outline: 0;
+        text-indent: 83px;
+        transition: all .3s ease-in-out;
+        box-shadow: 0px 5px 12px -12px rgba(0,0,0,0.29);
+
+        &::-webkit-input-placeholder {
+          color: #efefef;
+          text-indent: 0;
+          font-weight: 300;
+        }
+
+        + label {
+          display: inline-block;
+          position: absolute;
+          transform: translateX(0);
+          top: 0;
+          left: 0;
+          padding: 8px 15px;
+          text-shadow: 0 1px 0 rgba(19,74,70,.4);
+          transition: all .3s ease-in-out;
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+          overflow: hidden;
+          color: white;
+          text-transform: uppercase;
+          font-size: 11px;
+          text-shadow: 0 1px 0 rgba(19, 74, 70, 0);
+          letter-spacing: 1.5px;
+          font-weight: 300;
+
+          &:before,
+          &:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            left: 0;
+            z-index: -1;
+            transition: all .3s ease-in-out;
+          }
+          &:before {
+            top: 6px;
+            bottom: 6px;
+            background: $color-primary;
+          }
+          &:after {
+            top: 0;
+            bottom: -1px;
+            background: $color-primary;
+          }
+        }
+      }
+      span:nth-child(1) &__input-poi{
+        text-indent: 65px;
+      }
+      span:nth-child(1) &__input-poi:focus,
+      span:nth-child(1) &__input-poi:active {
+        text-indent: 0;
+      }
+      &__input-poi:focus,
+      &__input-poi:active {
+        color: #000;
+        text-indent: 0;
+        background: #fff;
+
+        &::-webkit-input-placeholder {
+          color: #aaa;
+        }
+        + label {
+          transform: translateY(-100%);
+
+          &:before {
+            border-radius: 5px;
+          }
+          &:after {
+            transform: translateY(100%);
+          }
+        }
+      }
+    }
+  }
+
+  &__tabela {
+    width: 100%;
+    max-width: 70%;
+  }
 }
 
 .container-error {
@@ -18,7 +179,6 @@
   align-items: center;
   justify-content: center;
   background-size: 400% 400%;
-  // background-image: linear-gradient(to right, #212529, #24303e, #273b54, #2c466a, #365081);
   background-image: linear-gradient(to right top, #212529, #24303e, #2f3a48, #2c466a, #365081);
   animation: mygradient 10s ease infinite;
 }
@@ -32,5 +192,55 @@
   }
   100% {
       background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    height: auto;
+
+    &__filtros {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 20px;
+      margin-bottom: 0;
+      width: 100%;
+
+      &__box {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0;
+        width: 100%;
+
+        >* {
+          margin-bottom: 10px;
+          margin-right: 0;
+        }
+
+        span {
+          margin-right: 0;
+          margin-left: 0;
+          width: 100% !important;
+          display: flex;
+
+          input {
+            width: 100%;
+          }
+        }
+
+        span, &__input-date {
+          width: 100%;
+        }
+      }
+
+      &__input-placa {
+        width: 100%;
+        min-width: auto;
+      }
+
+      &__input-date {
+        width: 100%;
+      }
+    }
   }
 }

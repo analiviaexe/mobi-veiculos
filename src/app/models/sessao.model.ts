@@ -1,4 +1,4 @@
 export interface Sessao {
-  username: number,
-  token: string
+  username: string,
+  password: string
 }

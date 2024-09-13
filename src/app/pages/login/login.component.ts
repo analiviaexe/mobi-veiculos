@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { SessaoService } from 'src/app/services/sessao/sessao.service';
+import { SessaoService } from '../../services/sessao/sessao.service';
 
 @Component({
   selector: 'app-login',

@@ -1,7 +1,25 @@
-<div class="container">
-  <app-table *ngIf="placas.length > 0" [placas]="placas"></app-table>
+<div class="container" *ngIf="carregaTabela">
+  <div class="container__filtros">
+    <span>Filtrar por:</span>
+    <div class="container__filtros__box">
+      <span>
+        <app-dropdown class="container__filtros__box__input-placa" [label]="'Veículo(s)'" [lista]="placas" [selecionadosDefault]="true" [exibeLabelAoSelecionar]="false" [multiselect]="true" (selecionou)="posicaoVeiculosService.filtroPlaca.next($event)"></app-dropdown>
+      </span>
+      <span>
+        <input class="container__filtros__box__input-poi" id="filtro-poi" type="text" placeholder="Ponto 1" [(ngModel)]="filterPosicao" /><label for="filtro-poi">Posição</label>
+      </span>
+      <span style="width: auto;">
+        <input
+          class="container__filtros__box__input-date"
+          type="date"
+          [(ngModel)]="filterData"
+          (ngModelChange)="posicaoVeiculosService.filtroData.next($event)"
+          placeholder="Filtrar por data"
+        />
+      </span>
+    </div>
+  </div>
+  <div class="container__tabela">
+    <app-table [data]="filteredData()"></app-table>
+  </div>
 </div>
-
-<!-- <div *ngIf="hasError" class="container-error">
-    <app-card-erro [codErro]="codErro"></app-card-erro>
-</div> -->

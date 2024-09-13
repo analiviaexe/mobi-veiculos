@@ -1,13 +1,15 @@
-<div>
+<div class="container">
   <div (mouseleave)="abreDropdown = false">
-      <button class="drop-toggle btn flat" (click)="abreDropdown =! abreDropdown">
-          <span *ngIf="selecionados.length<=0">{{label}}</span>
-          <span *ngIf="selecionados.length>0">{{selecionados.join(', ')}}</span>
-          <i class="fa fa-angle-down"></i>
+      <button class="container__drop-toggle" (click)="abreDropdown =! abreDropdown">
+          <span class="container__drop-toggle__label" *ngIf="exibeLabelAoSelecionar || selecionados.length === 0">{{label}}</span>
+          <span class="container__drop-toggle__label" *ngIf="selecionados.length>0">
+            {{selecionados.join(', ')}}
+          </span>
+          <span class="material-symbols-outlined">keyboard_arrow_down</span>
       </button>
-      <div class="drop-show" *ngIf="abreDropdown">
+      <div class="container__drop-options" *ngIf="abreDropdown">
           <label *ngFor="let item of lista">
-              <input type="checkbox" (change)="selecionaItem(item)" [checked]="selecionados.includes(item)"/>
+              <input [type]="multiselect === true ? 'checkbox' : 'radio'" (change)="selecionaItem(item)" [checked]="selecionados.includes(item)"/>
               <span>{{item}}</span>
           </label>
       </div>

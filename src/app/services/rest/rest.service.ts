@@ -12,23 +12,22 @@ constructor(
   private http: HttpClient
 ) { }
 
-public get(path: string, headers?: HttpHeaders): Observable<any> {
-  return this.http.get(
-    `${environment.contexto}${path}`,
-    { headers: this.concatWithDefaultHeaders(headers) }
-  );
-}
+  public get(path: string, headers?: HttpHeaders): Observable<any> {
+    return this.http.get(
+      `${environment.contexto}${path}`,
+      { headers: this.concatWithDefaultHeaders(headers) }
+    );
+  }
 
-public post(path: string, body: any, headers?: HttpHeaders): Observable<any> {
-  return this.http.post(
-    `${environment.contexto}${path}`,
-    body,
-    { headers: this.concatWithDefaultHeaders(headers) }
-  );
-}
+  public post(path: string, body: any, headers?: HttpHeaders): Observable<any> {
+    return this.http.post(
+      `${environment.contexto}${path}`,
+      body,
+      { headers: this.concatWithDefaultHeaders(headers) }
+    );
+  }
 
-private concatWithDefaultHeaders(headers?: HttpHeaders): HttpHeaders {
-  return (headers || new HttpHeaders()).set('Content-Type', 'application/json');
-}
-
+  private concatWithDefaultHeaders(headers?: HttpHeaders): HttpHeaders {
+    return (headers || new HttpHeaders()).set('Content-Type', 'application/json');
+  }
 }

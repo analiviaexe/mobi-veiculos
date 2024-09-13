@@ -2,6 +2,6 @@ export interface POI {
   id: number,
   nome: string,
   raio: number,
-  latidude: number,
+  latitude: number,
   longitude: number
 }

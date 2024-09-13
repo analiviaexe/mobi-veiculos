@@ -1,80 +1,91 @@
+import { POI } from './../../models/poi.model';
+import { Posicao } from './../../models/posicao.model';
 import { Injectable } from '@angular/core';
+import { groupBy } from '../../utils/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculoPontosService {
 
-  private readonly EARTH_RADIUS = 6371000; // Raio da Terra em metros
+  private readonly RAIO_TERRA = 6371000;
+  private readonly V_MAXIMA = 30 / 3.6; // Velocidade máxima 30km/h
 
-constructor() { }
+  constructor() { }
 
   //usa a formula de haversine para calcular a distancia do veiculo do POI
-  getDistanciaVeiculoPOI(latidudeCar: number, longitudeCar: number, latitudePOI: number, longitudePOI: number, raioPOI: number): number {
+  getDistanciaVeiculoPOI(latidudePosicao: number, longitudePosicao: number, latitudePOI: number, longitudePOI: number): number {
     const toRadians = (degree: number) => (degree * Math.PI) / 180;
-    const deltaLat = toRadians(latitudePOI - latidudeCar);
-    const deltaLon = toRadians(longitudePOI - longitudeCar);
+    const deltaLat = toRadians(latitudePOI - latidudePosicao);
+    const deltaLon = toRadians(longitudePOI - longitudePosicao);
 
-    const a =
-      Math.sin(deltaLat / 2) ** 2 +
-      Math.cos(toRadians(latidudeCar)) *
-        Math.cos(toRadians(latitudePOI)) *
-        Math.sin(deltaLon / 2) ** 2;
+    const a = Math.sin(deltaLat / 2) ** 2 +
+      Math.cos(toRadians(latidudePosicao)) *
+      Math.cos(toRadians(latitudePOI)) *
+      Math.sin(deltaLon / 2) ** 2;
     const d = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    return this.EARTH_RADIUS * d;
+    return this.RAIO_TERRA * d;
   }
 
-  //só mantem se ficou
-  calculaTempoPermanencia() {
 
-  }
+  retornaVeiculosEmPOIs(posicoes: Posicao[], POIs: POI[]): any[] {
+    const result: any[] = [];
 
-  retornaVeiculosEmPOIs(posicoes: any[], POIs: any[]): any {
-    const tempo: any = {};
+    POIs.forEach((ponto: POI) => {
+      const poiName = ponto.nome;
+      const posicaoPorPlaca = groupBy(posicoes, 'placa');
 
-    posicoes.forEach((posicao) => {
-      const placa = posicao.veiculo;
-      tempo[placa] = {};
+      Object.entries(posicaoPorPlaca).forEach(([placa, posicoes]) => {
+        let tempoTotal = 0;
 
-      POIs.forEach((poi) => {
-        const nomePOI = poi.nome;
-        tempo[placa][nomePOI] = 0;
+        const posicoesAgrupadas = posicoes as Posicao[];
+        posicoesAgrupadas.forEach((posicao: Posicao, i: number) => {
+          const carLat = posicao.latitude;
+          const carLon = posicao.longitude;
+          const ligado = posicao.ignicao;
+          const velocidade = posicao.velocidade;
+          const tempoCorridoAtual = new Date(posicao.data);
 
-        let inPointStart: Date | null = null;
+          if (i < posicoesAgrupadas.length - 1) {
+            const tempoCorridoProximo = new Date(posicoesAgrupadas[i + 1].data);
+            const intervalo = (tempoCorridoProximo.getTime() - tempoCorridoAtual.getTime()) / 1000; // Tempo em segundos
 
-        posicao.positions.forEach((record: any) => {
-          const carLat = record.latitude;
-          const carLon = record.longitude;
-          const ignition = record.ignicao;
-          const timestamp = new Date(record.data);
+            const distanceToPoint = this.getDistanciaVeiculoPOI(carLat, carLon, ponto.latitude, ponto.longitude);
 
-          // Calcula a distância entre o carro e o ponto
-          // const distance = this.carroDentroPOI(
-          //   carLat,
-          //   carLon,
-          //   point.latitude,
-          //   point.longitude,
-          //   point.raio
-          // );
-
-          // if (this.carroDentroPOI(carLat, carLon, point.latitude, point.longitude, point.raio) && !ignition) {
-          //   if (!inPointStart) {
-          //     inPointStart = timestamp;
-          //   }
-          // } else {
-          //   if (inPointStart) {
-          //     const timeSpent =
-          //       (timestamp.getTime() - inPointStart.getTime()) / 1000; // Em segundos
-          //     timeInPoints[plate][pointName] += timeSpent;
-          //     inPointStart = null;
-          //   }
-          // }
+            if (distanceToPoint <= ponto.raio && (!ligado || velocidade <= this.V_MAXIMA)) {
+              tempoTotal += intervalo;
+            }
+          }
         });
+
+        if (tempoTotal > 0) {
+          const totalTimeInHours = tempoTotal / 60;
+
+          result.push({
+            placa: placa,
+            posicao: poiName,
+            data: (posicoes as Posicao[])[0].data.split('T')[0],
+            tempo: this.converteMinutosLegivel(totalTimeInHours)
+          });
+        }
       });
     });
 
-    return tempo;
+    return result;
   }
 
+  converteMinutosLegivel(totalMinutes: number): string {
+    const hours = Math.floor((totalMinutes % 1440) / 60);
+    const minutes = Math.floor(totalMinutes % 60);
+
+    let result = '';
+
+    if (hours > 0) {
+      result += `${hours} hora${hours > 1 ? 's' : ''} e `;
+    }
+    result += `${minutes} minuto${minutes > 1 ? 's' : ''}`;
+
+    return result;
+  }
 }

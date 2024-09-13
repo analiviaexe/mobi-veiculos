@@ -1,17 +1,28 @@
-import { HttpClient, HttpHandler } from '@angular/common/http';
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, inject } from '@angular/core/testing';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 import { RestService } from './rest.service';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { environment } from '../../../environments/environment.dev';
 
-describe('Service: Rest', () => {
+describe('RestService', () => {
+  let service: RestService;
+  let httpMock: HttpTestingController;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RestService, HttpClient, HttpHandler]
+      imports: [HttpClientTestingModule],
+      providers: [RestService, HttpClient, HttpHandler ]
     });
+
+    service = TestBed.inject(RestService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
-  it('should ...', inject([RestService], (service: RestService) => {
+  afterEach(() => {
+    httpMock.verify();
+  });
+
+  it('should create', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 });

@@ -1,30 +1,7 @@
-<div *ngIf="placas.length > 0">
-  <div class="container-filtros">
-    <div class="row">
-      span
-      <span>
-        <input
-          class="input-date"
-          type="date"
-          [(ngModel)]="filterData"
-          placeholder="Filtrar por data"
-        />
-      </span>
-      <span>
-        <app-dropdown [label]="'Placa(s)'" [lista]="placas"></app-dropdown>
-      </span>
-      <span>
-        <input class="slide-up" id="filtro-placa" type="text" placeholder="ABC6787" [(ngModel)]="filterPlaca" /><label for="filtro-placa">Placa</label>
-      </span>
-      <span>
-        <input class="slide-up" id="filtro-poi" type="text" placeholder="Ponto 1" [(ngModel)]="filterPosicao" /><label for="filtro-poi">Posição</label>
-      </span>
-    </div>
-  </div>
-
+<div class="container">
   <div style="position: relative;">
-    <div class="container-table">
-      <table class="table-box">
+    <div class="container__table">
+      <table class="container__table__table-box">
         <thead>
           <tr>
             <th (click)="sortData('placa')">
@@ -35,8 +12,7 @@
               <span class="table-icon-sort material-symbols-outlined">swap_vert</span>
               Posição
             </th>
-            <th (click)="sortData('data')">
-              <span class="table-icon-sort material-symbols-outlined">swap_vert</span>
+            <th>
               Data
             </th>
             <th>Tempo</th>
@@ -44,26 +20,20 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of paginatedData()">
-              <td>{{ item.placa }}</td>
-              <td>{{ item.posicao }}</td>
-              <td>{{ item.data | date : "dd/MM/yyyy" }}</td>
-              <td>{{ item.tempo }}</td>
+              <td data-label="Placa">{{ item.placa }}</td>
+              <td data-label="Posicao">{{ item.posicao }}</td>
+              <td data-label="Data">{{ item.data | date : "dd/MM/yyyy" }}</td>
+              <td data-label="Tempo">{{ item.tempo }}</td>
             </tr>
         </tbody>
-        <div *ngIf="paginatedData().length === 0" style="height: 450px;
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        align-items: center;
-        background-color: white;
-        box-shadow: 0px 5px 12px -12px rgba(0,0,0,0.29);">
+        <div *ngIf="paginatedData().length === 0" class="container__table__table-box__blank">
           <span>Nao há resultados</span>
         </div>
       </table>
     </div>
   </div>
 
-  <div class="container-paginacao">
+  <div class="container__paginacao">
     <div class="paginacao-navegacao">
       <button (click)="previousPage()" [disabled]="currentPage === 1">
         <span class="paginacao-icon material-symbols-outlined">

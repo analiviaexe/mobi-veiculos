@@ -1,9 +1,9 @@
 export interface Posicao {
   id: number,
   placa: string,
-  dataPosicao: number,
+  data: string,
   velocidade: number,
-  latidude: number,
+  latitude: number,
   longitude: number,
   ignicao: boolean
 }
