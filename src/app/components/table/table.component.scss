@@ -36,7 +36,7 @@
     height:450px;
     overflow:scroll;
     margin-top: 95px;
-    background-color: $color-table-background-green;
+    background-color: white;
 
     &__table-box {
       width: 100%;
@@ -51,7 +51,7 @@
         align-content: center;
         justify-content: center;
         align-items: center;
-        background-color: $color-table-background-green;
+        background-color: white;
         box-shadow: 0px 5px 12px -12px rgba(0,0,0,0.29);
       }
 
@@ -66,7 +66,7 @@
           width: 25%;
         }
         tr{
-          background: $color-table-background-green;
+          background: #fff;
           border-bottom: 4px solid darken(#f8f9fd,3%);
           position: absolute;
           width: 100%;
@@ -87,7 +87,7 @@
           border: none;
           padding: 30px;
           font-size: 14px;
-          background: $color-table-background-green;
+          background: #fff;
           vertical-align: middle;
           color: #212529;
           width: 25%;
